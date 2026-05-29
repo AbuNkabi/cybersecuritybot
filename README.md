@@ -11,7 +11,7 @@ Before running the project, make sure the following software is installed:
 * .NET 8.0 SDK
 * Windows Operating System
 
----
+
 
 # Step-by-Step Instructions to Clone and Run the Project
 
@@ -103,8 +103,6 @@ Then:
 Build → Rebuild Solution
 ```
 
----
-
  8. Run the Application
 
 Press:
@@ -122,7 +120,6 @@ The WPF chatbot window should open with:
 * Voice greeting
 * Cybersecurity chatbot functionality
 
----
 
 # Features Included
 
