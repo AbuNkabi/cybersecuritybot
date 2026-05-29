@@ -18,7 +18,7 @@ Before running the project, make sure the following software is installed:
 Open Git Bash or Command Prompt and run:
 
 ```bash
-git clone https://github.com/yourusername/CybersecurityChatbot.git
+https://github.com/AbuNkabi/cybersecuritybot.git
 ```
 
 Replace the link with your actual GitHub repository URL.
