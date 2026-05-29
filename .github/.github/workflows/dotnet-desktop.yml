@@ -1,0 +1,74 @@
+```yaml
+name: .NET Core Desktop CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+env:
+  Solution_Name: CybersecurityChatBot.sln
+  Project_Path: CybersecurityChatBot/CybersecurityChatBot.csproj
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration:
+          - Debug
+          - Release
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Install .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      # Setup MSBuild
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      # Restore NuGet packages
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.Solution_Name }}
+
+      # Build the solution
+      - name: Build solution
+        run: >
+          dotnet build ${{ env.Solution_Name }}
+          --configuration ${{ matrix.configuration }}
+          --no-restore
+
+      # Run tests (if you have tests)
+      - name: Run tests
+        run: >
+          dotnet test ${{ env.Project_Path }}
+          --configuration ${{ matrix.configuration }}
+          --no-build
+          --verbosity normal
+
+      # Publish application
+      - name: Publish application
+        run: >
+          dotnet publish ${{ env.Project_Path }}
+          --configuration ${{ matrix.configuration }}
+          --output publish
+
+      # Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.configuration }}
+          path: publish
